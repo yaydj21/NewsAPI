@@ -16,11 +16,11 @@ app.use(express.urlencoded({extended:false}));
 const expressJWT = require('express-jwt');
 const config =require('./config');
 
-// // unless 除了/api的路由接口都要身份验证
-// app.use(expressJWT({secret:config.jwtSecretKey,algorithms: ['HS256']}).unless({path:[/^\/api/]}));
+// unless 除了/api的路由接口都要身份验证
+app.use(expressJWT({secret:config.jwtSecretKey,algorithms: ['HS256']}).unless({path:[/^\/api/]}));
 
 
-// 在这写代码
+// 下面是路由模块
 
 // 导入用户路由模块
 const userRouter = require('./router/user');
@@ -33,6 +33,9 @@ app.use('/api',newsRouter);
 // 导入文章内容数据路由模块
 const articlesRouter = require('./router/articles');
 app.use('/api',articlesRouter);
+
+const userinfoRouter = require('./router/userinfo');
+app.use('/my',userinfoRouter);
 
 // 调用app.listen方法，指定端口号并启动web服务器
 app.listen(3007,() =>{
